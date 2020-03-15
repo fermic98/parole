@@ -4,6 +4,7 @@ import it.polito.tdp.parole.model.Parole;
 
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,14 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
+
 
 
 public class FXMLController {
 	
 	Parole elenco = new Parole() ;
-	String stringa1 = "";
-
+	String stringa1 = null;
     @FXML
     private ResourceBundle resources;
 
@@ -45,35 +45,41 @@ public class FXMLController {
     @FXML
     void cancellaSelezionata(ActionEvent event) {
     	
-    	long startingTime = System.nanoTime();	
-    	elenco.getElenco().remove(stringa1);
-        String stringa="";
+    	long startingTime = System.nanoTime();
+    	stringa1= this.txtResult.getSelectedText();
     	for(String s : elenco.getElenco()) {
+    		if(s.compareTo(stringa1)==0) {
+    			elenco.getElenco().remove(s);
+    		}
+    	}
+    	
+        String stringa="";
+        LinkedList<String> ordinata= new LinkedList<String>(elenco.getElenco());
+    	for(String s : ordinata) {
     		stringa+=s+"\n";
     	}
     	txtResult.setText(stringa);
            	
         
-     	long estimatedTime = startingTime - System.nanoTime();
-     	String time = Integer.toString((int) estimatedTime);
-     	this.txtTime.appendText(time);
+    	long estimatedTime = System.nanoTime()-startingTime ;
+     	String time = Long.toString(estimatedTime);
+     	this.txtTime.appendText(time+"\n");
     }
     @FXML
     void doInsert(ActionEvent event) {
     	long startingTime = System.nanoTime();	
     	elenco.addParola(this.txtParola.getText());
     	String stringa="";
-    	for(String s : elenco.getElenco()) {
+    	LinkedList<String> ordinata= new LinkedList<String>(elenco.getElenco());
+    	for(String s : ordinata) {
     		stringa+=s+"\n";
     	}
     	txtResult.setText(stringa);
     	this.txtParola.clear();
-    	
         
-        
-     	long estimatedTime = startingTime - System.nanoTime();
-     	String time = Integer.toString((int) estimatedTime);
-     	this.txtTime.appendText(time);
+    	long estimatedTime = System.nanoTime()-startingTime ;
+    	String time = Long.toString(estimatedTime);
+     	this.txtTime.appendText(time+"\n");
     	}
 
     	@FXML
@@ -81,19 +87,14 @@ public class FXMLController {
         long startingTime = System.nanoTime();	
     	elenco.reset();
     	txtResult.clear();
-     	long estimatedTime = startingTime - System.nanoTime();
-     	String time = Integer.toString((int) estimatedTime);
-     	this.txtTime.appendText(time);
+    	long estimatedTime = System.nanoTime()-startingTime ;
+    	String time = Long.toString(estimatedTime);
+     	this.txtTime.appendText(time+"\n");
     	}
 
         @FXML
         void parolaClickata(MouseDragEvent event) {
-           long startingTime = System.nanoTime();	
-            stringa1= this.txtResult.getSelectedText();
-           
-           long estimatedTime = startingTime - System.nanoTime();
-        	String time = Integer.toString((int) estimatedTime);
-        	this.txtTime.appendText(time);
+          
         }
         @FXML
         void initialize() {

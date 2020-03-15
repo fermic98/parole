@@ -37,7 +37,7 @@
    <bottom>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="txtTime" disable="true" editable="false" prefHeight="100.0" prefWidth="141.0" />
+            <TextArea fx:id="txtTime" editable="false" prefHeight="100.0" prefWidth="141.0" />
             <Button fx:id="btnCancella" mnemonicParsing="false" onAction="#cancellaSelezionata" text="Cancella">
                <HBox.margin>
                   <Insets left="10.0" right="3.0" />

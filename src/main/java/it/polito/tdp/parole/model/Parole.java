@@ -14,10 +14,8 @@ public void addParola(String p) {
     parole.add(p);
 }
 
-public List<String> getElenco() {
-	LinkedList<String> ordinata= new LinkedList<String>(parole);
-	Collections.sort(ordinata);
-	return ordinata;
+public List<String> getElenco() {;
+	return parole;
 }
 
 public void reset() {
